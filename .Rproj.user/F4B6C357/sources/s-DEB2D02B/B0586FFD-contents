@@ -1,0 +1,100 @@
+getwd()
+?mpg
+class(mpg)
+head(mpg)
+view(mpg)
+colnames(mpg)
+nrow(mpg)
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+g<-ggplot(data=mpg)+geom_point(aes(x=displ,y=hwy))
+
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() + geom_smooth(method = "lm")
+#default value of method is null, as below, and it draws a local 
+#linear regression line
+ggplot(data=mpg)+geom_point(aes(x=displ,y=hwy))+
+  geom_smooth(aes(x=displ,y=hwy))
+
+#color in scatter plot:
+g <- ggplot(data = mpg, aes(x = displ, y = hwy))
+g + geom_point(aes(color = class))+geom_smooth(method="lm")
+
+#if you put any aes command in the ggplot(data section)
+#it maps over all the plot functions such as geom_point,geom_smooth
+#so to avoid, put the command in the specific function. Example as above
+g <- ggplot(data = mpg, aes(x = displ, y = hwy))
+g + geom_point(aes(alpha = cty))+geom_smooth(method="lm")
+
+g + geom_point(aes(color = class)) +
+  geom_point(aes(x=mean(displ), y=mean(hwy)), size=8)
+#to specify only one color, don't put colot=... behind aes(), instead
+#simply specify that color
+g <- ggplot(data = mpg, aes(x = displ, y = hwy))
+g + geom_point() + facet_grid(. ~ cyl)
+#or
+g + geom_point() + facet_grid(cyl ~ .)
+
+g + geom_point() + facet_grid(cyl ~ class)
+#when using facet_wrap, you don't need to specify row
+g + geom_point() + facet_wrap( ~ class)
+#box plot, the middle line is median which is 50 percentile
+#box represents common values, and two branches represent typical 
+#values, anything outside typical values are called outliners
+g <- ggplot(data = mpg, aes(x = class, y = hwy))
+g + geom_boxplot()
+
+#use fct_reorder from forecats package
+ggplot(data = mpg, aes(x = fct_reorder(class, hwy), y = hwy)) +
+  geom_boxplot()
+#sort by mean
+ggplot(data = mpg, aes(x = fct_reorder(class, hwy, .fun=mean), y = hwy, )) +
+  geom_boxplot()
+
+names(diamonds)
+
+ggplot(data = diamonds,aes(x = cut)) + geom_bar(aes(fill = cut))
+#is the same as:
+ggplot(data=diamonds)+geom_bar(aes(x=cut,fill=cut))
+
+#histogram:
+g <- ggplot(data = diamonds, aes(x = carat))
+g + geom_histogram(binwidth = 1)
+
+ggplot(data = diamonds) + geom_histogram(aes(x = carat), binwidth = 1)
+
+g <- ggplot(data = diamonds, aes(x = depth))
+zoom <- coord_cartesian(xlim = c(55, 70))
+g + geom_histogram(binwidth = 0.2) + zoom
+#or simpler:
+g+geom_histogram()+xlim(55, 70)
+#stacked plot
+g + geom_histogram(aes(fill=cut), binwidth = 0.2,
+                   position = position_stack(reverse=TRUE)) + zoom
+#overlap plot
+g + geom_histogram(aes(fill=cut), binwidth = 0.2,
+                   position = "identity",alpha=0.3) + zoom
+
+ggplot(data = diamonds, aes(x = price)) +
+  geom_histogram(binwidth = 500) + facet_wrap(~ cut)
+
+ggplot(data = diamonds, aes(x = price)) +
+  geom_histogram(binwidth = 500) +
+  facet_wrap(~ cut)+geom_freqpoly(binwidth = 500)
+#frequency plot
+ggplot(data = diamonds, aes(x = price)) +
+  facet_wrap(~ cut)+
+  geom_freqpoly(aes(color = cut),binwidth = 500)
+
+ggplot(data = diamonds, aes(x = price)) +
+  geom_freqpoly(aes(color = cut),binwidth = 500)
+#density plot
+ggplot(data = diamonds, aes(x = price)) +
+  geom_density(aes(color = cut))
+#density plot method 2
+ggplot(data=diamonds)+
+  geom_histogram(
+    aes(x=price,y=..density..,fill=cut),
+    position="identity",alpha=0.2
+  )
+

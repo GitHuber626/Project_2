@@ -1,0 +1,19 @@
+library(shiny)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(DT)
+
+
+flights <- read.csv(file = "./flights14.csv")
+
+get_delay <- function(selected_origin, selected_dest,selected_month){
+  flights %>%
+    filter(origin ==  selected_origin & dest == selected_dest & month 
+           == selected_month) %>%
+    group_by(carrier) %>%
+    summarise(
+      n = n(),
+      arrival = mean(arr_delay),
+      departure = mean(dep_delay))
+}

@@ -1,0 +1,5 @@
+"0","flights2 = separate(flights, route, c(""origin"", ""dest""), sep = ""-"")
+"
+"2","Error in separate(flights, route, c(""origin"", ""dest""), sep = ""-"") : 
+  could not find function ""separate""
+"

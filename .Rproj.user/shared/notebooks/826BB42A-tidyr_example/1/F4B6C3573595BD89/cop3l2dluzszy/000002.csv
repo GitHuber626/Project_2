@@ -1,0 +1,14 @@
+"0","weather <- readr::read_csv(""weather.csv"")
+"
+"1","[1mRows: [22m[34m22[39m [1mColumns: [22m[34m35[39m
+"
+"1","[36m--[39m [1mColumn specification[22m [36m----------------------------------------------[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (2): id, element
+[32mdbl[39m (25): year, month, d1, d2, d3, d4, d5, d6, d7, d8, d10, d11, d...
+[33mlgl[39m  (8): d9, d12, d18, d19, d20, d21, d22, d24
+"
+"1","
+[36mi[39m Use [38;5;235m[48;5;253m[38;5;235m[48;5;253m`spec()`[48;5;253m[38;5;235m[49m[39m to retrieve the full column specification for this data.
+[36mi[39m Specify the column types or set [38;5;235m[48;5;253m[38;5;235m[48;5;253m`show_col_types = FALSE`[48;5;253m[38;5;235m[49m[39m to quiet this message.
+"

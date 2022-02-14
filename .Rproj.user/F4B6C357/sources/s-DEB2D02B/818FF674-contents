@@ -1,0 +1,98 @@
+#Use standard method:
+# fluidPage(
+#   titlePanel("NYC Flights 2014"),
+#   sidebarLayout(
+#     sidebarPanel(
+#       selectizeInput(inputId = "origin",
+#                      label = "Departure airport",
+#                      choices = unique(flights[, 'origin'])),
+#       selectizeInput(inputId = "dest",
+#                      label = "Arrival airport",
+#                      choices = unique(flights[, 'dest']))
+#     ),
+#     mainPanel(
+#       fluidRow(
+#         column(6, plotOutput("count")),
+#         column(6, plotOutput("delay"))
+#       )
+#     )
+#   )
+# )
+
+#Another way to use standard method:
+# fluidPage(
+#   titlePanel("NYC Flights 2016"),
+#   sidebarLayout(
+#     sidebarPanel(
+#       selectizeInput(inputId = "origin",
+#                      label = "Departure airport",
+#                      choices = unique(flights$origin)),
+#       selectizeInput(inputId = "dest",
+#                      label = "Arrival airport",
+#                      choices = unique(flights$dest))
+#     ),
+#     mainPanel(
+#       fluidRow(
+#         column(plotOutput("count"), width=6),
+#         column(plotOutput("delay"), width=6)
+#       )
+#     )
+#   )
+# )
+
+#Use Shinydashboard:
+
+#library(shinydashboard)
+
+#dashboardPage(
+#  dashboardHeader(title='NYC Flights'),
+#  dashboardSidebar(
+#   sidebarUserPanel("NYC DSA", 
+#                      image = 'NYCDSA.png' ),
+#     
+#     selectizeInput(inputId='origin',label='Departure Airport',
+#                    choices=unique(flights$origin)),
+#     selectizeInput("dest", "Arrival Airport",
+#                    choices=unique(flights$dest))
+#   ),
+#   dashboardBody(
+#     tabsetPanel(
+#       tabPanel("Plots",
+#                fluidRow(
+#                  column(5, plotOutput("count")),
+#                  column(7, plotOutput("delay"))
+#                )),
+#       tabPanel("Table", dataTableOutput('table'))
+#     )
+#   )
+# )
+
+
+
+#The below added month input and used tabsetpanel for output
+fluidPage(
+  titlePanel("NYC Flights 2014"),
+  sidebarLayout(
+    sidebarPanel(
+      selectizeInput(inputId = "origin",
+                     label = "Departure airport",
+                     choices = unique(flights[, 'origin'])),
+      selectizeInput(inputId = "dest",
+                     label = "Arrival airport",
+                     choices = unique(flights[, 'dest'])),
+      selectizeInput(inputId = "month",
+                     label = "Month",
+                     choices = 1:12)
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel(
+          "graphs",
+          fluidRow(
+            column(6, plotOutput("count")),
+            column(6, plotOutput("delay"))
+          )
+          ),
+        tabPanel("data", dataTableOutput("table"))
+      ) )
+  ) )

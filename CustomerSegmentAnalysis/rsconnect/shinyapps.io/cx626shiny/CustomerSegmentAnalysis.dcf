@@ -1,0 +1,13 @@
+name: CustomerSegmentAnalysis
+title: CustomerSegmentAnalysis
+username:
+account: cx626shiny
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5645472
+bundleId: 5575536
+url: https://cx626shiny.shinyapps.io/CustomerSegmentAnalysis/
+when: 1644798109.74525
+lastSyncTime: 1644798109.74525
+asMultiple: FALSE
+asStatic: FALSE

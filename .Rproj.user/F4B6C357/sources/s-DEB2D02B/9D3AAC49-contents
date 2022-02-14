@@ -1,0 +1,46 @@
+function(input, output, session) {
+  observe({
+    dest <- unique(flights %>%
+                     filter(flights$origin == input$origin) %>%
+                     .$dest)
+    updateSelectizeInput(
+      session, "dest",
+      choices = dest,
+      selected = dest[1])
+  })
+  
+  
+  flights_delay <- reactive({
+    get_delay(input$origin, input$dest, input$month)
+  })
+
+  output$delay <- renderPlot(
+    flights_delay() %>%
+      gather(key = type, value = delay, departure, arrival) %>%
+      ggplot(aes(x = carrier, y = delay, fill = type)) +
+      geom_col(position = "dodge") +
+      ggtitle("Average delay")
+  )
+  
+  #Another way for output$delay:
+  # output$delay <- renderPlot(
+  #   flights_delay() %>%
+  #     pivot_longer(
+  #       arrival:departure, 
+  #       names_to = "type", values_to = "average_delay") %>%
+  #     ggplot() +
+  #     geom_col(
+  #       aes(x=carrier, y=average_delay, fill=type),
+  #       position = "dodge"
+  #     )
+  # )
+
+  output$count <- renderPlot(
+    flights_delay() %>%
+      ggplot(aes(x = carrier, y = n)) +
+      geom_col(fill = "lightblue") +
+      ggtitle("Number of flights")
+  )
+  
+  output$table <- DT::renderDataTable(flights_delay())
+}

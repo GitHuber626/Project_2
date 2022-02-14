@@ -1,0 +1,11 @@
+"0","billboard3 <- billboard2 %>%
+  mutate(
+    week = readr::parse_number(week),
+    date = readr::parse_date(date.entered) + 7 * (week - 1)) %>%
+  select(-date.entered)
+"
+"2","Error: Problem with `mutate()` column `date`.
+[34mi[39m `date = readr::parse_date(date.entered) + 7 * (week - 1)`.
+[31mx[39m is.character(x) is not TRUE
+[90mRun `rlang::last_error()` to see where the error occurred.[39m
+"
